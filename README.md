@@ -19,9 +19,19 @@ Le script Python se décompose en 3 étapes principale : La **Initialisation**, 
     response = requests.get(url)
     listOfShip = response.json()
     ```
-  * finalement, on déclare les variables `startDate` et `endDate`, on récupère les arguments (si ils existent), et on affecte des valeurs en fonction d'un argument aux deux variables
+  *  - finalement, on déclare les variables `startDate` et `endDate`, on récupère les arguments (si ils existent), et on affecte des valeurs en fonction d'un argument aux deux variables
     ```python
-    
+    # Declaration of variables of Dates
+    global startDate, endDate
+    startDate = "2021-01-01T00:00:00.000Z"
+    endDate = "2021-12-31T23:59:59.000Z"
+
+    # Check arguments
+    args = sys.argv
+    if(len(args) > 2):
+        startDate = ""+args[2]+"-01-01T00:00:00.000Z"
+        endDate = ""+args[2]+"-12-31T23:59:59.000Z"
+    ```
 
 2. Le **Traitement de données** : est simplement la partie avec les fonctions. Ces dernières vont manipuler le JSON (qui est sous forme de tableau). Chaque fonction a sa propre utilité, certaines vont faire aussi une requête pour récuperer des données supplémentaires sur un des objets du tableau (de JSON) (comme `getShipPosition(shipList, i,  startDate, endDate)`, d'autres vont parcourir des tableaux pour retourner la valeur maximal d'une clé ou d'un attribut (tel que `maxAverage((listShipA)`.
 
