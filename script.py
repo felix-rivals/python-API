@@ -1,9 +1,7 @@
 
-from ast import arg
 import requests
 import math
 import sys
-
 
 # Get Data from API with url
 
@@ -57,7 +55,7 @@ def northernmostPoint(shipPos):
     
     return max
 
-
+# returns the ship of an array with the highest Average
 def maxAverage(listShipA):
     maxA = listShipA[0]
     for i in range(0, len(listShipA)):
@@ -66,6 +64,7 @@ def maxAverage(listShipA):
 
     return maxA
 
+# returns the ship of an array with the nothermost Point
 def maxNorthPoint(listShipNP):
     maxNP = listShipNP[0]
     for i in range(0, len(listShipNP)):
@@ -74,6 +73,7 @@ def maxNorthPoint(listShipNP):
 
     return maxNP
 
+# main 
 
 resultShipData = []
 
@@ -89,9 +89,9 @@ shipMaxAverage = maxAverage(resultShipData)
 shipNortherPoint = maxNorthPoint(resultShipData)
 
 
-print('------------------------------------------------')
-print(' The northermost Ship is ',shipMaxAverage['name'],', with a sea-temperature average of ',shipMaxAverage['average'])
-print(' The ship with the highest Seatemp Average is ',shipNortherPoint['name'],', with a lattitude : ',shipNortherPoint['dataNorth']['lat'])
+print('---------------------------------------------------------------')
+print(' The ship with the highest Seatemp Average : ',shipMaxAverage['name'],' ; with a sea-temperature average : ',shipMaxAverage['average'])
+print(' The ship with the nothermost Point : ',shipNortherPoint['name'],' ; with a lattitude : ',shipNortherPoint['dataNorth']['lat'])
 
 
 
