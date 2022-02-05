@@ -1,70 +1,86 @@
 
+from ast import arg
 import requests
 import math
+import sys
+
+
+# Get Data from API with url
 
 url = "https://localisation.flotteoceanographique.fr/"
 
-urlListNavire = "https://localisation.flotteoceanographique.fr/api/v2/vessels"
+urlShipList = "https://localisation.flotteoceanographique.fr/api/v2/vessels"
 
-response = requests.get(urlListNavire)
+response = requests.get(urlShipList)
 
 print(response.status_code)
 
-# print(response[0])
+listOfShip = response.json()
 
-print('-------------------------------------------')
-
-dataNavire = response.json()
-
-# The Year2021
+# Declaration of variables of Dates
+global startDate, endDate
 startDate = "2021-01-01T00:00:00.000Z"
 endDate = "2021-12-31T23:59:59.000Z"
 
-# Coordinate of the North
-global latNorth, lonNorth
-latNorth = 90.000000
-lonNorth = -135.000000
+# Check arguments
+args = sys.argv
+if(len(args) > 2):
+    startDate = ""+args[2]+"-01-01T00:00:00.000Z"
+    endDate = ""+args[2]+"-12-31T23:59:59.000Z"
 
-def getShipPosition(i, startDate, endDate):
-    ps = requests.get(url+ "/api/v2/vessels/"+dataNavire[i]['id']+"/positions?startDate="+startDate+"&endDate="+endDate)
+
+# returns a list with the entire position with datas of one ship during a whole year
+def getShipPosition(shipList, i,  startDate, endDate):
+    ps = requests.get(url+"/api/v2/vessels/"+shipList[i]['id']+"/positions?startDate="+startDate+"&endDate="+endDate)
     positionsInArray = ps.json()
     return positionsInArray
 
-
-def averageTemp(shipData):
+# returns the average of sea-temperature of one ship
+def tempAverage(shipPos):
     tempAverage = 0
-    for i in range(0,len(shipData)-1):
-        if('seatemp' in shipData[i]['data']):
-            tempAverage = tempAverage + shipData[i]['data']['seatemp']
-            # print(shipData[i]['data']['seatemp'])
+    for i in range(0,len(shipPos)-1):
+        if('seatemp' in shipPos[i]['data']):
+            tempAverage = tempAverage + shipPos[i]['data']['seatemp']
+            # print(shipPos[i]['data']['seatemp'])
 
         # print(tempAverage)
     
-    tempAverage = tempAverage / len(shipData)
+    tempAverage = tempAverage / len(shipPos)
     return tempAverage
 
-def maxLattitude(shipData):
-    max = shipData[0]
-    for i in range(0,len(shipData)-1):
-        if(shipData[i]['lat'] > max['lat']):
-            max = shipData[i]
+# retuns the element i of the array named 'shipPos' with the highest value for the key 'lat', it returns a dictionnary
+def northernmostPoint(shipPos):
+    max = shipPos[0]
+    for i in range(0,len(shipPos)-1):
+        if(shipPos[i]['lat'] > max['lat']):
+            max = shipPos[i]
     
     return max
 
 
-reponse = requests.get(url+"/api/v2/vessels/"+dataNavire[0]['id']+"/positions")
+shipNorthermostPoints = []
+shipTempAverages = []
+for i in range(0, len(listOfShip)):
+    shipPositions = getShipPosition(listOfShip, i, startDate, endDate)
+    shipTempAverages[i] = { 'id': listOfShip[i]['id'], 'average' : tempAverage(shipPositions)}
+    shipNorthermostPoints[i] = { 'id': listOfShip[i]['id'], 'dataNorth' : northernmostPoint(shipPositions)}
+
+
+
+"""
 ship0Postions = getShipPosition(0, startDate, endDate);
 
 averageTempShip0 = averageTemp(ship0Postions)
 
-maxLatShip0 = maxLattitude(ship0Postions)
+maxLatShip0 = northernmostPoint(ship0Postions)
 
 print(type(ship0Postions))
 
-print(len(ship0Postions))
 
 print("average temp : ",averageTempShip0)
 print(maxLatShip0)
+
+"""
 
 
 
