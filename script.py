@@ -58,29 +58,40 @@ def northernmostPoint(shipPos):
     return max
 
 
-shipNorthermostPoints = []
-shipTempAverages = []
+def maxAverage(listShipA):
+    maxA = listShipA[0]
+    for i in range(0, len(listShipA)):
+        if(listShipA[i]['average'] > maxA['average']):
+            maxA = listShipA[i]
+
+    return maxA
+
+def maxNorthPoint(listShipNP):
+    maxNP = listShipNP[0]
+    for i in range(0, len(listShipNP)):
+        if(listShipNP[i]['dataNorth']['lat'] > maxNP['dataNorth']['lat']):
+            maxNP = listShipNP[i]
+
+    return maxNP
+
+
+resultShipData = []
+
 for i in range(0, len(listOfShip)):
     shipPositions = getShipPosition(listOfShip, i, startDate, endDate)
-    shipTempAverages[i] = { 'id': listOfShip[i]['id'], 'average' : tempAverage(shipPositions)}
-    shipNorthermostPoints[i] = { 'id': listOfShip[i]['id'], 'dataNorth' : northernmostPoint(shipPositions)}
+    a = {'id': listOfShip[i]['id'], 'name': listOfShip[i]['name'], 'average' : tempAverage(shipPositions)}
+    a['dataNorth'] = northernmostPoint(shipPositions)
+    resultShipData.append(a)
 
 
 
-"""
-ship0Postions = getShipPosition(0, startDate, endDate);
-
-averageTempShip0 = averageTemp(ship0Postions)
-
-maxLatShip0 = northernmostPoint(ship0Postions)
-
-print(type(ship0Postions))
+shipMaxAverage = maxAverage(resultShipData)
+shipNortherPoint = maxNorthPoint(resultShipData)
 
 
-print("average temp : ",averageTempShip0)
-print(maxLatShip0)
-
-"""
+print('------------------------------------------------')
+print(' The northermost Ship is ',shipMaxAverage['name'],', with a sea-temperature average of ',shipMaxAverage['average'])
+print(' The ship with the highest Seatemp Average is ',shipNortherPoint['name'],', with a lattitude : ',shipNortherPoint['dataNorth']['lat'])
 
 
 
