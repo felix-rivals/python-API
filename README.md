@@ -19,7 +19,7 @@ Le script Python se décompose en 3 étapes principale : La **Initialisation**, 
     response = requests.get(url)
     listOfShip = response.json()
     ```
-  *  - finalement, on déclare les variables `startDate` et `endDate`, on récupère les arguments (si ils existent), et on affecte des valeurs en fonction d'un argument aux deux variables
+  * finalement, on déclare les variables `startDate` et `endDate`, on récupère les arguments (si ils existent), et on affecte des valeurs en fonction d'un argument aux deux variables
     ```python
     # Declaration of variables of Dates
     global startDate, endDate
