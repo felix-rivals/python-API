@@ -5,7 +5,7 @@ L'objectif : Réaliser un script Python qui, à partir de l'API de la Flotte Oc�
 - le navire ayant été le plus au nord en 2021
 - le navire dont la moyenne des relevés de température d'eau est la plus élevée en 2021
 
-Les données fournie part l'API sont disponible sur https://www.data.gouv.fr/fr/datasets/position-des-navires-de-la-flotte-oceanographique-francaise/
+Les données fournie part l'API sont disponible sur le site [Position des navires de la Flotte Océanographique Française (ifremer/posnav) - data.gouv.fr](https://www.data.gouv.fr/fr/datasets/position-des-navires-de-la-flotte-oceanographique-francaise/)
 
 
 ### Description du script
