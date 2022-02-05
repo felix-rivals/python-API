@@ -11,20 +11,23 @@ urlShipList = "https://localisation.flotteoceanographique.fr/api/v2/vessels"
 
 response = requests.get(urlShipList)
 
-print(response.status_code)
 
 listOfShip = response.json()
 
+print(response.status_code)
+
 # Declaration of variables of Dates
 global startDate, endDate
-startDate = "2021-01-01T00:00:00.000Z"
-endDate = "2021-12-31T23:59:59.000Z"
+
 
 # Check arguments
 args = sys.argv
 if(len(args) > 2):
     startDate = ""+args[2]+"-01-01T00:00:00.000Z"
     endDate = ""+args[2]+"-12-31T23:59:59.000Z"
+else:
+    startDate = "2021-01-01T00:00:00.000Z"
+    endDate = "2021-12-31T23:59:59.000Z"    
 
 
 # returns a list with the entire position with datas of one ship during a whole year
@@ -73,7 +76,7 @@ def maxNorthPoint(listShipNP):
 
     return maxNP
 
-# main 
+# main programm
 
 resultShipData = []
 
@@ -82,7 +85,6 @@ for i in range(0, len(listOfShip)):
     a = {'id': listOfShip[i]['id'], 'name': listOfShip[i]['name'], 'average' : tempAverage(shipPositions)}
     a['dataNorth'] = northernmostPoint(shipPositions)
     resultShipData.append(a)
-
 
 
 shipMaxAverage = maxAverage(resultShipData)
