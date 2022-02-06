@@ -52,8 +52,7 @@ Le script Python se décompose en 3 étapes principale : La **Initialisation**, 
     shipNortherPoint = maxNorthPoint(resultShipData)
     ```
     
-    *(vous avez la possibilité d'entrée l'année en argument lors de la compilation et exécution du programme)*
+    *(Note : vous avez la possibilité d'entrer l'année en argument lors de l'exécution du programme)*
     
-    Voilà
 
 
