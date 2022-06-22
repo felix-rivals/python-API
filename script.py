@@ -95,6 +95,7 @@ print('---------------------------------------------------------------')
 print(' The ship with the highest Seatemp Average : ',shipMaxAverage['name'],' ; with a sea-temperature average : ',shipMaxAverage['average'])
 print(' The ship with the nothermost Point : ',shipNortherPoint['name'],' ; with a lattitude : ',shipNortherPoint['dataNorth']['lat'])
 
+# A OPTIMISER
 
 
 
